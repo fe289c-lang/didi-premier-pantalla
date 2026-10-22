@@ -237,7 +237,7 @@ function iniciarEscuchaAdmin() {
       
       // Si la nube recibe un mensaje, actualizamos la pantalla de la tablet
       if (data.event === 'message') {
-        aplicarCambioRemoto(data.message){
+        aplicarCambioRemoto(data.message)
   
   if (valor.startsWith("MSG:")) {
     const textoMensaje = valor.replace("MSG:", "").trim();
