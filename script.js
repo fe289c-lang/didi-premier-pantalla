@@ -1,3 +1,7 @@
+const imagenes = [
+  "imagen_1.jpg" // Reemplaza por el nombre exacto de tu archivo
+];
+
 // 🔔 Canal de notificaciones (coloca aquí exactamente el mismo nombre que pusiste en la app
 const CANAL_NTFY = "didi_premier_clima_88"; // Reemplaza por el nombre exacto de tu canal
 
