@@ -3,194 +3,120 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel Chofer - DiDi Premier</title>
+  <title>Panel de Control Chofer</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
     body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      background-color: #0d0d0d;
+      font-family: Arial, sans-serif;
+      background-color: #121212;
       color: #ffffff;
       padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-    }
-    h1 {
-      font-size: 1.2rem;
-      color: #c83e00;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .panel-card {
-      background-color: #1a1a1a;
-      width: 100%;
-      max-width: 400px;
-      border-radius: 20px;
-      padding: 20px;
+      margin: 0;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
-    .display-temp {
-      font-size: 3.5rem;
-      font-weight: bold;
-      color: #c83e00;
-      margin: 15px 0;
+    h2, h3 {
+      color: #ff9800;
     }
-    input[type=range] {
-      width: 100%;
-      height: 25px;
-      accent-color: #c83e00;
-      margin-bottom: 25px;
-    }
-    .grid-presets {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+    .seccion {
+      background: #1e1e1e;
+      padding: 15px;
+      border-radius: 10px;
       margin-bottom: 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
     }
     button {
-      background-color: #2a2a2a;
-      color: white;
+      width: 100%;
+      padding: 14px;
+      margin: 8px 0;
       border: none;
-      padding: 15px;
+      border-radius: 8px;
       font-size: 1rem;
       font-weight: bold;
-      border-radius: 12px;
       cursor: pointer;
-      transition: background-color 0.2s, transform 0.1s;
     }
-    button:active {
-      transform: scale(0.95);
-      background-color: #c83e00;
-    }
-    .btn-enviar {
-      width: 100%;
-      background-color: #c83e00;
-      padding: 18px;
-      font-size: 1.1rem;
-      margin-bottom: 10px;
+    .btn-clima {
+      background-color: #333;
+      color: white;
+      border: 1px solid #555;
     }
     .btn-apagar {
-      width: 100%;
-      background-color: #381313;
-      color: #ff6b6b;
-      padding: 15px;
+      background-color: #d32f2f;
+      color: white;
     }
-    .estatus {
-      margin-top: 15px;
-      font-size: 0.85rem;
-      color: #888;
+    .btn-enviar {
+      background-color: #ff5252;
+      color: white;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #444;
+      background-color: #2a2a2a;
+      color: white;
+      font-size: 1rem;
+      box-sizing: border-box;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
 
-  <h1>🚘 Panel Chofer - Clima</h1>
-
-  <div class="panel-card">
-    <div id="display-valor" class="display-temp">22.0°C</div>
-
-    <!-- Barra de deslizamiento -->
-    <input type="range" id="slider-driver" min="18.0" max="32.0" step="0.5" value="22.0" oninput="actualizarDisplay(this.value)">
-
-    <!-- Botones de ajuste rápido -->
-    <div class="grid-presets">
-      <button onclick="setRapido('LO')">LO (18°)</button>
-      <button onclick="setRapido('21.0°C')">21.0°C</button>
-      <button onclick="setRapido('HI')">HI (32°)</button>
-    </div>
-
-    <!-- Acciones principales -->
-    <button class="btn-enviar" onclick="enviarAtablet()">📡 Sincronizar con Tablet</button>
-    <button class="btn-apagar" onclick="apagarClimaTablet()">❄️ Apagar AC en Tablet</button>
-
-    <div id="estatus-envio" class="estatus">Listo para enviar</div>
-  </div>
+  <h2>🚗 Panel de Chofer</h2>
 
   <!-- 💬 Sección de Mensaje Emergente -->
-<div style="background: #2a2a2a; padding: 15px; border-radius: 10px; margin-top: 20px;">
-  <h3>💬 Enviar Mensaje a la Tablet</h3>
-  <input type="text" id="input-mensaje" placeholder="Ej: ¡Que tengas un excelente viaje!" style="width: 100%; padding: 10px; border-radius: 5px; border: none; margin-bottom: 10px; box-sizing: border-box;">
-  <button onclick="enviarMensajeEmergente()" style="width: 100%; padding: 12px; background: #ff5252; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">📩 Enviar Mensaje</button>
-</div>
+  <div class="seccion">
+    <h3>💬 Mensaje en Pantalla</h3>
+    <input type="text" id="input-mensaje" placeholder="Ej: ¡Bienvenido! ¿Gusta una botella de agua?">
+    <button class="btn-enviar" onclick="enviarMensajeEmergente()">📩 Enviar Mensaje</button>
+  </div>
+
+  <!-- 🌡️ Sección de Clima -->
+  <div class="seccion">
+    <h3>🌡️ Ajustar Clima Remoto</h3>
+    <button class="btn-clima" onclick="enviarComandoClima('20.0°C')">❄️ 20.0°C (Fresco)</button>
+    <button class="btn-clima" onclick="enviarComandoClima('22.0°C')">😊 22.0°C (Normal)</button>
+    <button class="btn-clima" onclick="enviarComandoClima('24.0°C')">☀️ 24.0°C (Templado)</button>
+    <button class="btn-apagar" onclick="enviarComandoClima('Apagado')">❌ Apagar AC</button>
+  </div>
 
   <script>
-    // ⚙️ Canal exclusivo de comandos hacia la tablet
-    const CANAL_ADMIN = "didi_premier_admin_88"; 
+    const CANAL_ADMIN = "didi_premier_admin_88";
 
-    let valorSeleccionado = "22.0°C";
+    // Función para enviar mensajes emergentes
+    function enviarMensajeEmergente() {
+      const input = document.getElementById('input-mensaje');
+      const mensaje = input.value.trim();
 
-    function actualizarDisplay(val) {
-      const num = parseFloat(val);
-      if (num === 32.0) valorSeleccionado = "HI";
-      else if (num === 18.0) valorSeleccionado = "LO";
-      else valorSeleccionado = `${num.toFixed(1)}°C`;
-
-      document.getElementById('display-valor').innerText = valorSeleccionado;
-    }
-
-    function setRapido(val) {
-      valorSeleccionado = val;
-      document.getElementById('display-valor').innerText = val;
-    }
-
-    function enviarComando(mensaje) {
-      const estatus = document.getElementById('estatus-envio');
-      estatus.innerText = "Enviando...";
+      if (mensaje === "") return;
 
       fetch(`https://ntfy.sh/${CANAL_ADMIN}`, {
         method: 'POST',
-        body: mensaje,
-        headers: { 'Title': 'Comando Chofer' }
+        body: `MSG: ${mensaje}`
       })
       .then(res => {
         if (res.ok) {
-          estatus.innerText = `✅ Enviado a tablet: ${mensaje}`;
-          estatus.style.color = "#4caf50";
+          alert("✅ Mensaje enviado a la tablet");
+          input.value = "";
         } else {
-          estatus.innerText = "❌ Error al enviar";
-          estatus.style.color = "#f44336";
+          alert("❌ Error al enviar el mensaje");
         }
       })
-      .catch(err => {
-        estatus.innerText = "❌ Error de conexión";
-        estatus.style.color = "#f44336";
-      });
+      .catch(err => alert("❌ Error de red: " + err));
     }
 
-    function enviarAtablet() {
-      enviarComando(valorSeleccionado);
+    // Función para enviar cambios de clima
+    function enviarComandoClima(valor) {
+      fetch(`https://ntfy.sh/${CANAL_ADMIN}`, {
+        method: 'POST',
+        body: valor
+      })
+      .then(res => {
+        if (res.ok) {
+          console.log("Comando enviado:", valor);
+        }
+      })
+      .catch(err => console.error("Error al enviar clima:", err));
     }
-
-    function apagarClimaTablet() {
-      valorSeleccionado = "Apagado";
-      document.getElementById('display-valor').innerText = "Apagado";
-      enviarComando("Apagado");
-    }
-
-    function enviarMensajeEmergente() {
-  const input = document.getElementById('input-mensaje');
-  const mensaje = input.value.trim();
-
-  if (mensaje === "") return;
-
-  // Enviamos con el prefijo MSG: a través de ntfy
-  fetch(`https://ntfy.sh/${CANAL_ADMIN}`, {
-    method: 'POST',
-    body: `MSG: ${mensaje}`
-  })
-  .then(() => {
-    alert("✅ Mensaje enviado a la tablet");
-    input.value = ""; // Limpia el recuadro
-  })
-  .catch(err => console.error("Error al enviar mensaje:", err));
-}
   </script>
 </body>
 </html>
