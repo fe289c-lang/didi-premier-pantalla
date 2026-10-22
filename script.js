@@ -1,5 +1,5 @@
-// 🔔 Canal de notificaciones (coloca aquí exactamente el mismo nombre que pusiste en la app
-const CANAL_NTFY = "didi_premier_clima_88"; // Reemplaza por el nombre exacto de tu canal
+// 🔔 Canal de notificaciones (coloca aquí exactamente el mismo nombre que pusiste en la app)
+const CANAL_NTFY = "didi_premier_clima_88"; 
 
 function enviarAlertaCelular(mensaje) {
   console.log("Intentando enviar alerta:", mensaje);
@@ -95,7 +95,6 @@ function alternarIdioma() {
 
   clearTimeout(temporizadorIdioma);
   if (idiomaActual === 'en') {
-    // Si se selecciona inglés, se programa el retorno a español en 30 minutos
     temporizadorIdioma = setTimeout(() => {
       idiomaActual = 'es';
       aplicarTraducciones();
@@ -181,7 +180,6 @@ function confirmarTemperatura() {
   actualizarBotonClima();
   cerrarModalClima();
 
-  // 🔔 Envía la alerta inmediata a tu teléfono
   enviarAlertaCelular(`El pasajero solicita: ${estadoClimaTexto}`);
 }
 
@@ -190,7 +188,6 @@ function apagarClima() {
   actualizarBotonClima();
   cerrarModalClima();
 
-  // 🔔 Envía la alerta de apagado a tu teléfono
   enviarAlertaCelular("El pasajero solicita: APAGAR el aire acondicionado");
 }
 
@@ -228,22 +225,13 @@ document.getElementById('modal-spotify').addEventListener('click', () => {
 const CANAL_ADMIN = "didi_premier_admin_88"; 
 
 function iniciarEscuchaAdmin() {
-  // Conexión en tiempo real a la nube ntfy
   const eventSource = new EventSource(`https://ntfy.sh/${CANAL_ADMIN}/sse`);
 
   eventSource.onmessage = (event) => {
     try {
       const data = JSON.parse(event.data);
-      
-      // Si la nube recibe un mensaje, actualizamos la pantalla de la tablet
       if (data.event === 'message') {
-        aplicarCambioRemoto(data.message) };
-  
-  if (valor.startsWith("MSG:")) {
-    const textoMensaje = valor.replace("MSG:", "").trim();
-    mostrarMensajeEmergente(textoMensaje);
-    return;
-  };
+        aplicarCambioRemoto(data.message);
       }
     } catch (e) {
       console.error("Error al procesar el comando remoto:", e);
@@ -257,6 +245,13 @@ function iniciarEscuchaAdmin() {
 
 // 🔄 Aplica los cambios recibidos desde el celular del chofer
 function aplicarCambioRemoto(valor) {
+  // Detecta si es un mensaje de texto directo para el pasajero
+  if (valor.startsWith("MSG:")) {
+    const textoMensaje = valor.replace("MSG:", "").trim();
+    mostrarMensajeEmergente(textoMensaje);
+    return;
+  }
+
   const t = traducciones[idiomaActual];
 
   if (valor === "Apagado" || valor === "Off") {
@@ -264,7 +259,6 @@ function aplicarCambioRemoto(valor) {
   } else {
     estadoClimaTexto = valor;
     
-    // Sincronizar la barra deslizable dentro del modal
     const range = document.getElementById('range-temp');
     if (valor === "HI") range.value = 32.0;
     else if (valor === "LO") range.value = 18.0;
@@ -274,7 +268,6 @@ function aplicarCambioRemoto(valor) {
     }
   }
 
-  // Actualiza el texto en la barra inferior de la tablet
   actualizarBotonClima();
   console.log(`🤖 Clima sincronizado desde el panel de chofer: ${valor}`);
 }
