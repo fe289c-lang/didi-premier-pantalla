@@ -28,6 +28,7 @@ function enviarAlertaCelular(mensaje) {
 // 📺 Carrusel de imágenes
 const imagenes = [
   "imagen_1.jpg",
+  "imagen_2.jpg",
 ];
 
 let indiceActual = 0;
