@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pantalla Pasajero DiDi Premier</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- 📺 Carrusel de Anuncios -->
+    <main class="carrusel-seccion">
+      <img id="imagen-carrusel" src="https://picsum.photos/1200/600?random=1" alt="Anuncio">
+    </main>
+
+    <!-- 🎛️ Barra Inferior (4 Columnas) -->
+    <footer class="barra-inferior">
+      
+      <!-- 📶 Red Wi-Fi -->
+      <div class="tarjeta wifi">
+        <h3 id="txt-titulo-wifi">📶 Red Wi-Fi</h3>
+        <p class="dato-wifi"><span id="txt-label-red">Red:</span> <span>MiAuto_WiFi</span></p>
+        <p class="dato-wifi"><span id="txt-label-clave">Clave:</span> <span>ViajaSeguro2026</span></p>
+      </div>
+
+      <!-- 🎵 Enlace a Spotify Jam -->
+      <div class="tarjeta musica">
+        <h3 id="txt-titulo-musica">🎵 Control de Música</h3>
+        <button class="btn-spotify" onclick="abrirModalSpotify()">
+          <svg class="logo-spotify" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.02 8.52-.6 11.64 1.32.42.18.48.66.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141 C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.18-.1.2-1.2-.42-.18-.6.42-1.2 1.02-1.4 4.2-1.26 11.28-1.02 15.72 1.62.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.56.3z"/>
+          </svg>
+          <span id="txt-btn-spotify">Música en Spotify</span>
+        </button>
+      </div>
+
+      <!-- 🌡️ Selector de Temperatura -->
+      <div class="tarjeta clima">
+        <h3 id="txt-titulo-clima">🌡️ Clima del Auto</h3>
+        <button id="btn-abrir-clima" onclick="abrirModalClima()">Ajustar Clima (22.0°C)</button>
+      </div>
+
+      <!-- 🌐 Cambiar Idioma -->
+      <div class="tarjeta idioma">
+        <h3 id="txt-titulo-idioma">🌐 Idioma</h3>
+        <button id="btn-cambiar-idioma" onclick="alternarIdioma()">English 🇺🇸</button>
+      </div>
+
+    </footer>
+
+  </div>
+
+  <!-- 🪟 Modal Clima -->
+  <div id="modal-clima" class="modal-overlay oculto">
+    <div class="modal-contenido">
+      <h2 id="txt-modal-clima-titulo">🌡️ Selecciona la Temperatura</h2>
+      
+      <div class="control-slider">
+        <span id="valor-temp" class="display-temperatura">22.0°C</span>
+        <input type="range" id="range-temp" min="18.0" max="32.0" step="0.5" value="22.0" oninput="actualizarLecturaTemp(this.value)">
+      </div>
+
+      <div class="botones-modal">
+        <button class="btn-apagar" id="btn-apagar-ac" onclick="apagarClima()">❄️ Apagar AC</button>
+        <button class="btn-confirmar" id="btn-confirmar-ac" onclick="confirmarTemperatura()">✅ Confirmar</button>
+      </div>
+
+      <button class="btn-cerrar" id="btn-cancelar-clima" onclick="cerrarModalClima()">❌ Cancelar</button>
+    </div>
+  </div>
+
+  <!-- 🎵 Modal Spotify Jam -->
+  <div id="modal-spotify" class="modal-overlay oculto">
+    <div class="modal-contenido">
+      <h2 id="txt-modal-spotify-titulo">🎵 Control de Música</h2>
+      <p id="txt-modal-spotify-desc" style="color: #ccc; margin-bottom: 20px;">Escanea el código QR o presiona el botón para unirte al <strong>Spotify Jam</strong> del vehículo.</p>
+      
+      <div style="background: #fff; padding: 10px; border-radius: 12px; display: inline-block; margin-bottom: 20px;">
+        <img id="qr-spotify" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://spotify.com" alt="QR Spotify Jam">
+      </div>
+
+      <button class="btn-spotify-link" id="btn-abrir-spotify-link" onclick="abrirEnlaceSpotify()">🟢 Abrir Spotify Jam</button>
+      <button class="btn-cerrar" id="btn-cancelar-spotify" onclick="cerrarModalSpotify()">❌ Volver al inicio</button>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,188 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background-color: #0d0d0d;
+  color: #f5f5f5;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+.carrusel-seccion {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.carrusel-seccion img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 🎛️ Barra Inferior - 4 Columnas equitativas */
+.barra-inferior {
+  height: 160px;
+  background-color: #141414;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  padding: 15px;
+  border-top: 1px solid #262626;
+}
+
+.tarjeta {
+  background-color: #1e1e1e;
+  border-radius: 16px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.tarjeta h3 {
+  font-size: 0.95rem;
+  color: #c83e00; /* Naranja DiDi Premier */
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.dato-wifi {
+  font-size: 0.85rem;
+  color: #a0a0a0;
+  margin: 2px 0;
+}
+
+.dato-wifi span {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* 🔘 Botones Minimalistas sin borde */
+button {
+  flex: 1;
+  width: 100%;
+  background-color: #2a2a2a;
+  color: #ffffff;
+  border: none;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+button:active {
+  background-color: #c83e00;
+  transform: scale(0.98);
+}
+
+.btn-spotify {
+  background-color: #1db954;
+  color: #000000;
+  font-weight: 700;
+}
+
+.btn-spotify:active {
+  background-color: #179443;
+}
+
+.btn-spotify-link {
+  background-color: #1db954;
+  color: #000;
+  margin-bottom: 10px;
+  padding: 14px;
+}
+
+/* 🪟 Estilos del Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.88);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+}
+
+.oculto {
+  display: none !important;
+}
+
+.modal-contenido {
+  background-color: #1a1a1a;
+  border-radius: 24px;
+  padding: 30px;
+  width: 85%;
+  max-width: 550px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+}
+
+.modal-contenido h2 {
+  margin-bottom: 15px;
+  color: #c83e00;
+  font-size: 1.4rem;
+}
+
+.display-temperatura {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #c83e00;
+  display: block;
+  margin-bottom: 15px;
+}
+
+input[type=range] {
+  width: 100%;
+  height: 20px;
+  accent-color: #c83e00;
+  cursor: pointer;
+}
+
+.botones-modal {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.btn-apagar {
+  background-color: #381313;
+  color: #ff6b6b;
+}
+
+.btn-confirmar {
+  background-color: #c83e00;
+  color: #ffffff;
+}
+
+.btn-cerrar {
+  margin-top: 12px;
+  background-color: #2a2a2a;
+  color: #888;
+}
