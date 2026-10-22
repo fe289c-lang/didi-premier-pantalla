@@ -1,7 +1,3 @@
-const imagenes = [
-  "imagen_1.jpg" // Reemplaza por el nombre exacto de tu archivo
-];
-
 // 🔔 Canal de notificaciones (coloca aquí exactamente el mismo nombre que pusiste en la app
 const CANAL_NTFY = "didi_premier_clima_88"; // Reemplaza por el nombre exacto de tu canal
 
@@ -31,7 +27,7 @@ function enviarAlertaCelular(mensaje) {
 
 // 📺 Carrusel de imágenes
 const imagenes = [
-  "https://picsum.photos/1200/600?random=1",
+  "imagen_1",
   "https://picsum.photos/1200/600?random=2",
   "https://picsum.photos/1200/600?random=3"
 ];
