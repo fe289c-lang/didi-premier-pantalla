@@ -113,6 +113,13 @@
     <div id="estatus-envio" class="estatus">Listo para enviar</div>
   </div>
 
+  <!-- 💬 Sección de Mensaje Emergente -->
+<div style="background: #2a2a2a; padding: 15px; border-radius: 10px; margin-top: 20px;">
+  <h3>💬 Enviar Mensaje a la Tablet</h3>
+  <input type="text" id="input-mensaje" placeholder="Ej: ¡Que tengas un excelente viaje!" style="width: 100%; padding: 10px; border-radius: 5px; border: none; margin-bottom: 10px; box-sizing: border-box;">
+  <button onclick="enviarMensajeEmergente()" style="width: 100%; padding: 12px; background: #ff5252; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">📩 Enviar Mensaje</button>
+</div>
+
   <script>
     // ⚙️ Canal exclusivo de comandos hacia la tablet
     const CANAL_ADMIN = "didi_premier_admin_88"; 
