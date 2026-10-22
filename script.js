@@ -292,3 +292,25 @@ function mostrarMensajeEmergente(texto) {
     }, 8000); // Se oculta tras 8 segundos
   }
 }
+
+// 📶 Lógica Modal Wi-Fi
+let temporizadorWifi;
+
+function abrirModalWifi() {
+  const modal = document.getElementById('modal-wifi');
+  if (modal) {
+    modal.classList.remove('oculto');
+    clearTimeout(temporizadorWifi);
+    temporizadorWifi = setTimeout(() => {
+      cerrarModalWifi();
+    }, 30000); // Se cierra tras 30 segundos
+  }
+}
+
+function cerrarModalWifi() {
+  const modal = document.getElementById('modal-wifi');
+  if (modal) {
+    modal.classList.add('oculto');
+    clearTimeout(temporizadorWifi);
+  }
+}
