@@ -246,9 +246,9 @@ function iniciarEscuchaAdmin() {
 // 🔄 Aplica los cambios recibidos desde el celular del chofer
 function aplicarCambioRemoto(valor) {
   // Detecta si es un mensaje de texto directo para el pasajero
-  if (valor.startsWith("MSG:")) {
-    const textoMensaje = valor.replace("MSG:", "").trim();
-    mostrarMensajeEmergente(textoMensaje);
+if (valor.startsWith("BIENVENIDA:")) {
+    const nombrePasajero = valor.replace("BIENVENIDO:", "").trim();
+    mostrarBienvenidaPersonalizada(nombrePasajero);
     return;
   }
 
@@ -312,5 +312,23 @@ function cerrarModalWifi() {
   if (modal) {
     modal.classList.add('oculto');
     clearTimeout(temporizadorWifi);
+  }
+}
+
+// 👋 Función para mostrar el saludo personalizado durante 10 segundos
+let temporizadorBienvenida;
+
+function mostrarBienvenidaPersonalizada(nombre) {
+  const modal = document.getElementById('modal-bienvenida');
+  const txtNombre = document.getElementById('txt-nombre-pasajero');
+
+  if (modal && txtNombre) {
+    txtNombre.innerText = nombre;
+    modal.classList.remove('oculto');
+
+    clearTimeout(temporizadorBienvenida);
+    temporizadorBienvenida = setTimeout(() => {
+      modal.classList.add('oculto');
+    }, 15000); // Permanece 10 segundos en pantalla
   }
 }
