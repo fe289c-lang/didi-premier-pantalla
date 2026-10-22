@@ -59,6 +59,13 @@
 
   <h2>🚗 Panel de Chofer</h2>
 
+  <!-- 👋 Sección Bienvenida Personalizada -->
+<div class="seccion">
+  <h3>👋 Bienvenida al Pasajero</h3>
+  <input type="text" id="input-nombre" placeholder="Nombre del pasajero (Ej: Carlos)" style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #444; background: #2a2a2a; color: white; font-size: 1rem; box-sizing: border-box; margin-bottom: 10px;">
+  <button class="btn-enviar" onclick="enviarBienvenida()">🎉 Enviar Bienvenida</button>
+</div>
+
   <!-- 🌡️ Control de Clima con Barra Deslizable -->
   <div class="seccion">
     <h3>🌡️ Control de Clima</h3>
@@ -113,6 +120,16 @@
       })
       .catch(err => console.error("Error al enviar comando:", err));
     }
+
+    function enviarBienvenida() {
+  const input = document.getElementById('input-nombre');
+  const nombre = input.value.trim();
+
+  if (nombre === "") return;
+
+  enviarComando(`BIENVENIDA:${nombre}`);
+  input.value = ""; // Limpia el recuadro
+}
   </script>
 </body>
 </html>
