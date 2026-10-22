@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel de Control Chofer</title>
+  <title>Panel Chofer - Clima</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -18,10 +18,22 @@
     }
     .seccion {
       background: #1e1e1e;
-      padding: 15px;
-      border-radius: 10px;
+      padding: 20px;
+      border-radius: 12px;
       margin-bottom: 20px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    }
+    .temp-display {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #00e676;
+      margin: 15px 0;
+    }
+    input[type="range"] {
+      width: 100%;
+      height: 12px;
+      margin: 15px 0;
+      accent-color: #00e676;
     }
     button {
       width: 100%;
@@ -33,29 +45,13 @@
       font-weight: bold;
       cursor: pointer;
     }
-    .btn-clima {
-      background-color: #333;
-      color: white;
-      border: 1px solid #555;
+    .btn-enviar {
+      background-color: #00e676;
+      color: #000;
     }
     .btn-apagar {
       background-color: #d32f2f;
       color: white;
-    }
-    .btn-enviar {
-      background-color: #ff5252;
-      color: white;
-    }
-    input[type="text"] {
-      width: 100%;
-      padding: 12px;
-      border-radius: 6px;
-      border: 1px solid #444;
-      background-color: #2a2a2a;
-      color: white;
-      font-size: 1rem;
-      box-sizing: border-box;
-      margin-bottom: 10px;
     }
   </style>
 </head>
@@ -63,59 +59,59 @@
 
   <h2>🚗 Panel de Chofer</h2>
 
-  <!-- 💬 Sección de Mensaje Emergente -->
+  <!-- 🌡️ Control de Clima con Barra Deslizable -->
   <div class="seccion">
-    <h3>💬 Mensaje en Pantalla</h3>
-    <input type="text" id="input-mensaje" placeholder="Ej: ¡Bienvenido! ¿Gusta una botella de agua?">
-    <button class="btn-enviar" onclick="enviarMensajeEmergente()">📩 Enviar Mensaje</button>
-  </div>
+    <h3>🌡️ Control de Clima</h3>
+    
+    <div class="temp-display" id="valor-temp-admin">22.0°C</div>
 
-  <!-- 🌡️ Sección de Clima -->
-  <div class="seccion">
-    <h3>🌡️ Ajustar Clima Remoto</h3>
-    <button class="btn-clima" onclick="enviarComandoClima('20.0°C')">❄️ 20.0°C (Fresco)</button>
-    <button class="btn-clima" onclick="enviarComandoClima('22.0°C')">😊 22.0°C (Normal)</button>
-    <button class="btn-clima" onclick="enviarComandoClima('24.0°C')">☀️ 24.0°C (Templado)</button>
-    <button class="btn-apagar" onclick="enviarComandoClima('Apagado')">❌ Apagar AC</button>
+    <input type="range" id="range-temp-admin" min="18.0" max="32.0" step="0.5" value="22.0" oninput="actualizarLectura(this.value)">
+
+    <button class="btn-enviar" onclick="enviarTemperaturaRemota()">✅ Aplicar Temperatura</button>
+    <button class="btn-apagar" onclick="enviarApagadoRemoto()">❄️ Apagar AC</button>
   </div>
 
   <script>
     const CANAL_ADMIN = "didi_premier_admin_88";
 
-    // Función para enviar mensajes emergentes
-    function enviarMensajeEmergente() {
-      const input = document.getElementById('input-mensaje');
-      const mensaje = input.value.trim();
+    function actualizarLectura(valor) {
+      const display = document.getElementById('valor-temp-admin');
+      const numVal = parseFloat(valor);
 
-      if (mensaje === "") return;
-
-      fetch(`https://ntfy.sh/${CANAL_ADMIN}`, {
-        method: 'POST',
-        body: `MSG: ${mensaje}`
-      })
-      .then(res => {
-        if (res.ok) {
-          alert("✅ Mensaje enviado a la tablet");
-          input.value = "";
-        } else {
-          alert("❌ Error al enviar el mensaje");
-        }
-      })
-      .catch(err => alert("❌ Error de red: " + err));
+      if (numVal === 32.0) {
+        display.innerText = "HI (32.0°C)";
+      } else if (numVal === 18.0) {
+        display.innerText = "LO (18.0°C)";
+      } else {
+        display.innerText = `${numVal.toFixed(1)}°C`;
+      }
     }
 
-    // Función para enviar cambios de clima
-    function enviarComandoClima(valor) {
+    function enviarTemperaturaRemota() {
+      const val = parseFloat(document.getElementById('range-temp-admin').value);
+      let mensaje = `${val.toFixed(1)}°C`;
+
+      if (val === 32.0) mensaje = "HI";
+      if (val === 18.0) mensaje = "LO";
+
+      enviarComando(mensaje);
+    }
+
+    function enviarApagadoRemoto() {
+      enviarComando("Apagado");
+    }
+
+    function enviarComando(valor) {
       fetch(`https://ntfy.sh/${CANAL_ADMIN}`, {
         method: 'POST',
         body: valor
       })
       .then(res => {
         if (res.ok) {
-          console.log("Comando enviado:", valor);
+          console.log("Comando de clima enviado:", valor);
         }
       })
-      .catch(err => console.error("Error al enviar clima:", err));
+      .catch(err => console.error("Error al enviar comando:", err));
     }
   </script>
 </body>
