@@ -19,10 +19,11 @@
     <footer class="barra-inferior">
       
       <!-- 📶 Red Wi-Fi -->
-      <div class="tarjeta wifi">
+      <div class="tarjeta">
         <h3 id="txt-titulo-wifi">📶 Red Wi-Fi</h3>
-        <p class="dato-wifi"><span id="txt-label-red">Red:</span> <span>MiAuto_WiFi</span></p>
-        <p class="dato-wifi"><span id="txt-label-clave">Clave:</span> <span>ViajaSeguro2026</span></p>
+        <p><strong id="txt-label-red">Red:</strong> VEMO_MMMTO</p>
+        <p><strong id="txt-label-clave">Clave:</strong> 12345abc</p>
+        <button onclick="abrirModalWifi()">📶 Ver Código QR</button>
       </div>
 
       <!-- 🎵 Enlace a Spotify Jam -->
@@ -85,7 +86,21 @@
       <button class="btn-cerrar" id="btn-cancelar-spotify" onclick="cerrarModalSpotify()">❌ Volver al inicio</button>
     </div>
   </div>
+<!-- 📶 Modal Wi-Fi -->
+<div id="modal-wifi" class="modal oculto">
+  <div class="modal-contenido">
+    <h2>📶 Conéctate al Wi-Fi</h2>
+    <p><strong>Red:</strong> VEMO_MMMTO</p>
+    <p><strong>Clave:</strong> 12345abc</p>
+    
+    <!-- Generador dinámico de QR para Wi-Fi -->
+    <div style="margin: 20px 0;">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=WIFI:T:WPA;S:VEMO_MMMTO;P:12345abc;;" alt="QR WiFi" style="border-radius: 10px;">
+    </div>
 
+    <button onclick="cerrarModalWifi()">❌ Cerrar</button>
+  </div>
+</div>
 
   <!-- 💬 Modal de Mensaje Emergente -->
 <div id="modal-mensaje" class="modal oculto">
