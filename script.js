@@ -28,8 +28,6 @@ function enviarAlertaCelular(mensaje) {
 // 📺 Carrusel de imágenes
 const imagenes = [
   "imagen_1",
-  "https://picsum.photos/1200/600?random=2",
-  "https://picsum.photos/1200/600?random=3"
 ];
 
 let indiceActual = 0;
