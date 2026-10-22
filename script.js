@@ -39,7 +39,7 @@ setInterval(() => {
   if (elementoImagen) {
     elementoImagen.src = imagenes[indiceActual];
   }
-}, 5000);
+}, 9000);
 
 // 🌐 Sistema de Traducción e Idiomas
 let idiomaActual = 'es';
