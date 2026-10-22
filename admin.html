@@ -173,6 +173,24 @@
       document.getElementById('display-valor').innerText = "Apagado";
       enviarComando("Apagado");
     }
+
+    function enviarMensajeEmergente() {
+  const input = document.getElementById('input-mensaje');
+  const mensaje = input.value.trim();
+
+  if (mensaje === "") return;
+
+  // Enviamos con el prefijo MSG: a través de ntfy
+  fetch(`https://ntfy.sh/${CANAL_ADMIN}`, {
+    method: 'POST',
+    body: `MSG: ${mensaje}`
+  })
+  .then(() => {
+    alert("✅ Mensaje enviado a la tablet");
+    input.value = ""; // Limpia el recuadro
+  })
+  .catch(err => console.error("Error al enviar mensaje:", err));
+}
   </script>
 </body>
 </html>
