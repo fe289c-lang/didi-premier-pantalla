@@ -237,7 +237,13 @@ function iniciarEscuchaAdmin() {
       
       // Si la nube recibe un mensaje, actualizamos la pantalla de la tablet
       if (data.event === 'message') {
-        aplicarCambioRemoto(data.message);
+        aplicarCambioRemoto(data.message){
+  
+  if (valor.startsWith("MSG:")) {
+    const textoMensaje = valor.replace("MSG:", "").trim();
+    mostrarMensajeEmergente(textoMensaje);
+    return;
+  };
       }
     } catch (e) {
       console.error("Error al procesar el comando remoto:", e);
@@ -276,3 +282,20 @@ function aplicarCambioRemoto(valor) {
 // Activar la escucha al cargar la página
 iniciarEscuchaAdmin();
 
+// 💬 Función para mostrar el mensaje emergente
+let temporizadorMensaje;
+
+function mostrarMensajeEmergente(texto) {
+  const modal = document.getElementById('modal-mensaje');
+  const cuerpo = document.getElementById('txt-cuerpo-mensaje');
+
+  if (modal && cuerpo) {
+    cuerpo.innerText = texto;
+    modal.classList.remove('oculto');
+
+    clearTimeout(temporizadorMensaje);
+    temporizadorMensaje = setTimeout(() => {
+      modal.classList.add('oculto');
+    }, 8000); // Se oculta tras 8 segundos
+  }
+}
