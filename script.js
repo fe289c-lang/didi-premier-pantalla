@@ -244,13 +244,24 @@ function iniciarEscuchaAdmin() {
 }
 
 // 🔄 Aplica los cambios recibidos desde el celular del chofer
-function aplicarCambioRemoto(valor) {
-  // Detecta si es un mensaje de texto directo para el pasajero
-if (valor.startsWith("BIENVENIDA:")) {
-    const nombrePasajero = valor.replace("BIENVENIDO:", "").trim();
-    mostrarBienvenidaPersonalizada(nombrePasajero);
-    return;
+function mostrarBienvenidaPersonalizada(nombre) {
+  console.log("📩 Se recibió la bienvenida para:", nombre); // 👈 Esta línea nos confirmará si llega la señal
+
+  const modal = document.getElementById('modal-bienvenida');
+  const txtNombre = document.getElementById('txt-nombre-pasajero');
+
+  if (modal && txtNombre) {
+    txtNombre.innerText = nombre;
+    modal.classList.remove('oculto');
+
+    clearTimeout(temporizadorBienvenida);
+    temporizadorBienvenida = setTimeout(() => {
+      modal.classList.add('oculto');
+    }, 10000);
+  } else {
+    console.error("❌ No se encontró el modal-bienvenida en el HTML");
   }
+}
 
   const t = traducciones[idiomaActual];
 
